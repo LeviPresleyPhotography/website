@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Levi Presley Photography</title>
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&display=swap" rel="stylesheet" />
+<!-- External CSS -->
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <h1>Levi Presley Photography</h1>
+  <div class="social-icons">
+    <a href="about.html" class="icon"><div class="label">ABOUT</div></a>
+    <!-- GALLERY tab removed -->
+    <a href="contact.html" class="icon"><div class="label">CONTACT</div></a>
+  </div>
+</header>
+
+<!-- Photo Grid -->
+<div class="photo-grid" id="photoGrid">
+  <img src="images/image_001.jpg" alt="Photo 1" data-description="Description for Photo 1" />
+  <img src="images/image_002.jpg" alt="Photo 2" data-description="Description for Photo 2" />
+  <img src="images/image_003.jpg" alt="Photo 3" data-description="Description for Photo 3" />
+  <img src="images/image_004.jpg" alt="Photo 4" data-description="Description for Photo 4" />
+  <img src="images/image_005.jpg" alt="Photo 5" data-description="Description for Photo 5" />
+  <img src="images/image_006.jpg" alt="Photo 6" data-description="Description for Photo 6" />
+  <img src="images/image_007.jpg" alt="Photo 7" data-description="Description for Photo 7" />
+</div>
+
+<!-- Overlay for enlarged photo -->
+<div id="photoOverlay" class="overlay hidden">
+  <div class="overlay-content">
+    <button class="close-btn" id="closeBtn">&times;</button>
+    <img id="enlargedImg" src="" alt="" />
+    <div class="description" id="descText"></div>
+  </div>
+</div>
+
+<script>
+  // Set grid width to header text width
+  function setGridWidth() {
+    const headerText = document.querySelector('header h1');
+    const grid = document.getElementById('photoGrid');
+    const width = headerText.offsetWidth;
+    grid.style.width = width + 'px';
+  }
+
+  window.onload = setGridWidth;
+  window.onresize = setGridWidth;
+
+  // Enlarge image on click
+  const overlay = document.getElementById('photoOverlay');
+  const enlargedImg = document.getElementById('enlargedImg');
+  const descText = document.getElementById('descText');
+  const closeBtn = document.getElementById('closeBtn');
+
+  document.querySelectorAll('#photoGrid img').forEach(img => {
+    img.addEventListener('click', () => {
+      enlargedImg.src = img.src;
+      enlargedImg.alt = img.alt;
+      descText.textContent = img.dataset.description;
+      overlay.classList.remove('hidden');
+    });
+  });
+
+  // Close overlay
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.add('hidden');
+  });
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.add('hidden');
+    }
+  });
+</script>
+
+</body>
+</html>
